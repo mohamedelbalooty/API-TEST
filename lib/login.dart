@@ -3,7 +3,6 @@
 // import 'package:covid_19/screan/date.dart';
 // import 'package:covid_19/screan/splash.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
-//
 // import 'package:covid_19/screan/forget.dart';
 // import 'package:covid_19/screan/register.dart';
 // import 'package:covid_19/widgets/header.dart';

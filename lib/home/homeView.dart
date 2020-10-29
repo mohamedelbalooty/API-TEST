@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'addPost.dart';
 import 'homeController.dart';
 import 'homeModel.dart';
 
@@ -17,7 +16,7 @@ class HomeView extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddPost(),
+                    // builder: (context) => AddPost(),
                   ),
                 );
               })
@@ -53,7 +52,7 @@ class HomeView extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child:
                     // articles[index].newsUrlToImage != null
-                         Image.network(articles[index].newsUrlToImage)
+                         Image.network(articles[index].newsUrlToImage),
                         // : Image.network(
                         //     "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F398709373239314297%2F&psig=AOvVaw0s49VMnhTA2DGOtJh5ufx7&ust=1603834596008000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKjxosCb0-wCFQAAAAAdAAAAABAD"),
                   );

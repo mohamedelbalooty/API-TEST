@@ -1,11 +1,24 @@
+import 'package:api/home/homeView.dart';
 import 'package:api/login/loginController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:toast/toast.dart';
+import 'loginModel.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+  @override
+  _LoginViewState createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
   String phone;
   String password;
+  bool isLoading = false;
+
   LoginController _loginController = LoginController();
+  LoginModel _loginModel;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +34,7 @@ class LoginView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: [
-              _textField('User name', (value) {
+              _textField('Phone', (value) {
                 phone = value;
               }),
               SizedBox(
@@ -30,16 +43,49 @@ class LoginView extends StatelessWidget {
               _textField('Password', (value) {
                 password = value;
               }),
-              RaisedButton(
-                color: Colors.pink,
-                child: Text('Login'),
-                onPressed: () {
-                  if(_globalKey.currentState.validate()){
-                    _globalKey.currentState.save();
-                    _loginController.userLogin(phone: phone, password: password);
-                  }
-                },
-              )
+              SizedBox(
+                height: 20,
+              ),
+              isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : RaisedButton(
+                      color: Colors.pink,
+                      child: Text('Login'),
+                      onPressed: () async {
+                        if (_globalKey.currentState.validate()) {
+                          try {
+                            _globalKey.currentState.save();
+                            setState(() {
+                              isLoading = true;
+                            });
+                            _loginModel = await _loginController.userLogin(
+                                phone: phone, password: password);
+                            setState(() {
+                              isLoading = false;
+                            });
+                            if (_loginModel.state == '0') {
+                              Toast.show('Error', context,
+                                  duration: Toast.LENGTH_SHORT,
+                                  gravity: Toast.BOTTOM);
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomeView(),
+                                ),
+                              );
+                            }
+                          } on PlatformException catch (exception) {
+                            setState(() {
+                              isLoading = false;
+                            });
+                            Toast.show(exception.message, context,
+                                duration: Toast.LENGTH_SHORT,
+                                gravity: Toast.BOTTOM);
+                          }
+                        }
+                      },
+                    ),
             ],
           ),
         ),
@@ -47,9 +93,10 @@ class LoginView extends StatelessWidget {
     );
   }
 
+  // ignore: missing_return
   String _messageError(String hint) {
     switch (hint) {
-      case 'User name':
+      case 'Phone':
         return 'Enter your phone';
       case 'Password':
         return 'Enter your password';

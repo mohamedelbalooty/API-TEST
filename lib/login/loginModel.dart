@@ -31,7 +31,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     apiToken = json['api_token'];
     client =
-    json['client'] != null ? new Client.fromJson(json['client']) : null;
+        json['client'] != null ? new Client.fromJson(json['client']) : null;
   }
 
   Map<String, dynamic> toJson() {
