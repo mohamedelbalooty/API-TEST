@@ -18,7 +18,7 @@ class _LoginViewState extends State<LoginView> {
   bool isLoading = false;
 
   LoginController _loginController = LoginController();
-  LoginModel _loginModel;
+  LoginModel _loginModel = LoginModel();
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +64,8 @@ class _LoginViewState extends State<LoginView> {
                               isLoading = false;
                             });
                             if (_loginModel.state == '0') {
-                              Toast.show('Error', context,
-                                  duration: Toast.LENGTH_SHORT,
+                              Toast.show(_loginModel.msg, context,
+                                  duration: Toast.LENGTH_LONG,
                                   gravity: Toast.BOTTOM);
                             } else {
                               Navigator.push(

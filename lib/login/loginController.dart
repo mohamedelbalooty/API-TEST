@@ -16,7 +16,7 @@ class LoginController {
     if (_loginModel.state == "1") {
       _loginModel = LoginModel.fromJson(jsonData);
     } else {
-      _loginModel = LoginModel(state: jsonData['state'], msg: jsonData['msg'], data: jsonData['data']);
+      _loginModel = LoginModel(state: jsonData['state'], msg: jsonData['msg']);
     }
     return _loginModel;
   }
