@@ -1,6 +1,5 @@
+import 'package:api/secreens/login/loginView.dart';
 import 'package:flutter/material.dart';
-import 'home/homeView.dart';
-import 'login/loginView.dart';
 
 void main() => runApp(MyApp());
 

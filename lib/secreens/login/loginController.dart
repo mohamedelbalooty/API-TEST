@@ -1,8 +1,8 @@
-import 'package:api/login/loginModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'loginModel.dart';
 
 class LoginController {
   final String _loginURL = 'http://lifewithyou.online/manag/api/v1/login';
